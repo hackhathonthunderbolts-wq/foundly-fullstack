@@ -1,12 +1,8 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "web/**", "use": "@vercel/static" },
-    { "src": "api/index.js", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/index.js" },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/web/$1" }
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api/index.js" },
+    { "source": "/", "destination": "/web/index.html" },
+    { "source": "/:path*", "destination": "/web/:path*" }
   ]
 }
