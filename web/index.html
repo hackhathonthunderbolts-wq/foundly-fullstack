@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Foundly — VIT Lost &amp; Found</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- Splash -->
+<div id="splash" class="splash">
+  <div class="splash-f">F</div>
+  <div class="splash-word">Foundly</div>
+</div>
+
+<!-- App shell (hidden until splash/auth resolve) -->
+<div id="app" class="app-shell hidden">
+  <nav class="sidebar">
+    <div class="sidebar-logo">Foundly</div>
+    <div class="sidebar-item" data-tab="home">🏠&nbsp;&nbsp;Home</div>
+    <div class="sidebar-item" data-tab="myposts">🗂&nbsp;&nbsp;My Posts</div>
+    <div class="sidebar-item" data-tab="matches">🔗&nbsp;&nbsp;Matches</div>
+    <div class="sidebar-item" data-tab="profile">☺&nbsp;&nbsp;Profile</div>
+  </nav>
+
+  <main class="main-content" id="main-content">
+    <!-- views injected by app.js -->
+  </main>
+
+  <nav class="bottom-nav">
+    <div class="nav-item" data-tab="home"><div>⌂</div><span>Home</span></div>
+    <div class="nav-item" data-tab="myposts"><div>🗂</div><span>My Posts</span></div>
+    <div class="nav-item" data-tab="matches"><div>🔗</div><span>Matches</span></div>
+    <div class="nav-item" data-tab="profile"><div>☺</div><span>Profile</span></div>
+  </nav>
+</div>
+
+<!-- Sign-in (hidden until splash resolves, shown if no session) -->
+<div id="signin" class="splash hidden" style="gap:26px;">
+  <div style="text-align:center;">
+    <div class="splash-f" style="font-size:46px; animation:none; text-shadow:0 0 20px rgba(95,168,255,0.45);">F</div>
+    <h1 class="h1" style="margin-top:6px;">Foundly</h1>
+    <p class="body-secondary" style="margin-top:8px; max-width:280px;">Lost &amp; Found, exclusively for VIT students.</p>
+  </div>
+  <div style="width:280px;">
+    <button class="btn btn-secondary" id="google-signin-btn">Sign in with Google</button>
+    <p class="caption" style="text-align:center; margin-top:12px;">Only <b style="color:var(--text-primary);">@[VIT_EMAIL_DOMAIN]</b> accounts can access Foundly.</p>
+    <p class="caption" style="text-align:center; margin-top:4px; color:var(--warning);">⚙ Demo mode: domain check is off (REQUIRE_VIT_DOMAIN=false on the API).</p>
+  </div>
+</div>
+
+<div id="toast-root"></div>
+
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

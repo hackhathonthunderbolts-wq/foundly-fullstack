@@ -1,0 +1,459 @@
+/* =========================================================================
+   Foundly — design tokens & component styles
+   Mirrors the brand spec (black + blue theme, Lost/Found mode tints).
+   ========================================================================= */
+
+:root {
+  --bg-base: #0B0E14;
+  --bg-surface: #151A24;
+  --bg-surface-raised: #1E2430;
+
+  --brand-core: #2F6FED;
+  --brand-glow: #5FA8FF;
+
+  --lost-primary: #12224A;
+  --lost-accent: #3E63FF;
+  --found-primary: #173A5E;
+  --found-accent: #4FC3F7;
+
+  --text-primary: #F5F7FA;
+  --text-secondary: #9AA5B8;
+  --text-disabled: #5B6478;
+
+  --success: #33C481;
+  --warning: #F5B942;
+  --error: #FF5A5F;
+  --divider: #242B38;
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3 { font-family: var(--font-display); margin: 0; }
+p { margin: 0; }
+
+a { color: var(--brand-glow); text-decoration: none; }
+
+button { font-family: inherit; }
+
+/* ---------------------------------------------------------------------
+   Layout shell — responsive per spec §2.7 (sidebar on desktop, bottom
+   nav on mobile/tablet)
+   --------------------------------------------------------------------- */
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--divider);
+  padding: 28px 16px;
+  display: none; /* shown at desktop breakpoint */
+}
+
+.sidebar-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--brand-glow);
+  margin-bottom: 32px;
+  padding-left: 8px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.sidebar-item.active,
+.sidebar-item:hover {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.main-content {
+  flex: 1;
+  max-width: 640px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 24px 20px 100px;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background: rgba(11, 14, 20, 0.94);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--divider);
+  padding: 10px 6px calc(10px + env(safe-area-inset-bottom));
+  z-index: 40;
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  color: var(--text-disabled);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.nav-item.active { color: var(--brand-glow); }
+
+@media (min-width: 1024px) {
+  .sidebar { display: block; }
+  .bottom-nav { display: none; }
+  .main-content { padding: 40px 32px 40px; }
+}
+
+/* ---------------------------------------------------------------------
+   Typography scale
+   --------------------------------------------------------------------- */
+
+.h1 { font-size: 24px; font-weight: 600; line-height: 32px; }
+.h2 { font-size: 18px; font-weight: 600; line-height: 26px; }
+.body { font-size: 15px; line-height: 22px; }
+.body-secondary { font-size: 14px; line-height: 21px; color: var(--text-secondary); }
+.caption { font-size: 12px; line-height: 16px; color: var(--text-secondary); }
+
+/* ---------------------------------------------------------------------
+   Buttons
+   --------------------------------------------------------------------- */
+
+.btn {
+  height: 48px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  font-size: 15px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.15s ease;
+}
+
+.btn:active { transform: scale(0.98); }
+
+.btn-primary { background: var(--brand-core); color: #fff; }
+.btn-primary.lost { background: var(--lost-accent); color: #fff; }
+.btn-primary.found { background: var(--found-accent); color: #08131c; }
+
+.btn-secondary {
+  background: transparent;
+  border: 1.5px solid var(--brand-core);
+  color: var(--text-primary);
+}
+
+.btn-ghost { background: transparent; color: var(--text-secondary); font-weight: 500; }
+
+.btn:disabled { background: var(--bg-surface-raised); color: var(--text-disabled); cursor: not-allowed; }
+
+.btn-inline {
+  width: auto;
+  height: 36px;
+  padding: 0 14px;
+  font-size: 13px;
+}
+
+/* ---------------------------------------------------------------------
+   Inputs & form fields — with error states (spec §2.6)
+   --------------------------------------------------------------------- */
+
+.field { margin-bottom: 18px; }
+
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.field .req { color: var(--found-accent); }
+
+.input, .textarea, select.input {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  padding: 13px 14px;
+  outline: none;
+}
+
+.input:focus, .textarea:focus, select.input:focus {
+  border-color: var(--brand-glow);
+  box-shadow: 0 0 0 3px rgba(95, 168, 255, 0.18);
+}
+
+.textarea { resize: vertical; min-height: 96px; line-height: 20px; }
+
+.field.has-error .input,
+.field.has-error .textarea { border-color: var(--error); border-width: 2px; }
+
+.field-error {
+  color: var(--error);
+  font-size: 12px;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.field-helper { color: var(--text-secondary); font-size: 12px; margin-top: 6px; }
+
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.chip {
+  padding: 9px 13px;
+  border-radius: 20px;
+  border: 1px solid var(--divider);
+  background: var(--bg-surface);
+  font-size: 13px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.chip.selected.lost { background: var(--lost-accent); border-color: var(--lost-accent); color: #fff; }
+.chip.selected.found { background: var(--found-accent); border-color: var(--found-accent); color: #08131c; font-weight: 600; }
+
+/* ---------------------------------------------------------------------
+   Cards
+   --------------------------------------------------------------------- */
+
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.mode-cards { display: flex; gap: 12px; margin-bottom: 28px; }
+
+.mode-card {
+  flex: 1;
+  border-radius: var(--radius-lg);
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: space-between;
+  min-height: 160px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease;
+}
+
+.mode-card:hover { transform: translateY(-2px); }
+
+.mode-card.lost { background: linear-gradient(155deg, var(--lost-primary), #0c1730); border-color: #24356e; }
+.mode-card.found { background: linear-gradient(155deg, var(--found-primary), #0c2438); border-color: #1f5273; }
+
+.pill {
+  align-self: flex-start;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.pill.lost { background: rgba(62, 99, 255, 0.22); color: #9db4ff; }
+.pill.found { background: rgba(79, 195, 247, 0.22); color: #8fdcff; }
+
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 8px;
+  text-transform: uppercase;
+}
+
+.badge.lost { background: rgba(62, 99, 255, 0.18); color: #9db4ff; }
+.badge.found { background: rgba(79, 195, 247, 0.18); color: #8fdcff; }
+.badge.status-open { background: rgba(245, 185, 66, 0.16); color: var(--warning); }
+.badge.status-matched { background: rgba(51, 196, 129, 0.16); color: var(--success); }
+
+.feed-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--divider);
+  cursor: pointer;
+}
+
+.feed-thumb {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.score-ring {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------------
+   Chat / relay thread
+   --------------------------------------------------------------------- */
+
+.chat-thread { display: flex; flex-direction: column; gap: 10px; padding: 14px 0; }
+
+.chat-bubble {
+  max-width: 78%;
+  padding: 10px 13px;
+  border-radius: 16px;
+  font-size: 13.5px;
+  line-height: 19px;
+}
+
+.chat-bubble.me { background: var(--brand-core); color: #fff; align-self: flex-end; border-bottom-right-radius: 5px; }
+.chat-bubble.them { background: var(--bg-surface-raised); align-self: flex-start; border-bottom-left-radius: 5px; }
+
+.chat-sys {
+  align-self: center;
+  font-size: 11px;
+  color: var(--text-secondary);
+  background: var(--bg-surface);
+  padding: 5px 12px;
+  border-radius: 12px;
+}
+
+/* ---------------------------------------------------------------------
+   Loading screen — blinking "F" (spec §2.4)
+   --------------------------------------------------------------------- */
+
+.splash {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 22px;
+  background: var(--bg-base);
+}
+
+.splash-f {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(64px, 12vw, 120px);
+  color: var(--brand-glow);
+  line-height: 1;
+  animation: pulse-f 1.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  text-shadow: 0 0 24px rgba(95, 168, 255, 0.55);
+}
+
+@keyframes pulse-f {
+  0%   { opacity: 0.4; transform: scale(0.96); text-shadow: 0 0 8px rgba(95, 168, 255, 0.3); }
+  50%  { opacity: 1;   transform: scale(1);    text-shadow: 0 0 28px rgba(95, 168, 255, 0.65); }
+  100% { opacity: 0.4; transform: scale(0.96); text-shadow: 0 0 8px rgba(95, 168, 255, 0.3); }
+}
+
+.splash-word {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-f { animation: none; opacity: 1; transform: none; }
+}
+
+/* ---------------------------------------------------------------------
+   Toasts
+   --------------------------------------------------------------------- */
+
+.toast {
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: 90px;
+  max-width: 420px;
+  margin: 0 auto;
+  background: var(--bg-surface-raised);
+  border-left: 3px solid var(--success);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  z-index: 80;
+  animation: toast-in 0.25s ease-out;
+}
+
+.toast.error { border-left-color: var(--error); }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------------------------------------------------------------
+   Utility
+   --------------------------------------------------------------------- */
+
+.row { display: flex; align-items: center; }
+.between { justify-content: space-between; }
+.gap-8 { gap: 8px; }
+.gap-12 { gap: 12px; }
+.mb-8 { margin-bottom: 8px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.hidden { display: none !important; }
+.avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--brand-core);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px;
+}

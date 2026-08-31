@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  matching-service:
+    build: ./matching-service
+    ports:
+      - "8001:8001"
+    command: uvicorn app:app --host 0.0.0.0 --port 8001
+
+  reference-service:
+    build: ./reference-service
+    ports:
+      - "8002:8002"
+    environment:
+      - PORT=8002
+
+  node-api:
+    build: ./node-api
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - MATCHING_SERVICE_URL=http://matching-service:8001
+      - REFERENCE_SERVICE_URL=http://reference-service:8002
+      - REQUIRE_VIT_DOMAIN=false
+      - VIT_EMAIL_DOMAIN=[VIT_EMAIL_DOMAIN]
+    depends_on:
+      - matching-service
+      - reference-service
+
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web:/usr/share/nginx/html:ro
+    depends_on:
+      - node-api
