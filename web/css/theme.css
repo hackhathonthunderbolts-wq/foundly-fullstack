@@ -1,0 +1,55 @@
+/* Foundly theme overrides: clean white light mode + accessible dark mode. */
+:root {
+  color-scheme: light;
+  --bg-base: #ffffff;
+  --bg-surface: #f7f9fc;
+  --bg-surface-raised: #eef2f7;
+  --text-primary: #111827;
+  --text-secondary: #667085;
+  --text-disabled: #98a2b3;
+  --divider: #e4e7ec;
+  --brand-core: #2563eb;
+  --brand-glow: #1d4ed8;
+}
+
+html, body { background: var(--bg-base); color: var(--text-primary); transition: background .2s ease, color .2s ease; }
+.bottom-nav { background: rgba(255,255,255,.94); }
+.sidebar { background: #fff; }
+
+.theme-toggle {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid var(--divider);
+  border-radius: 999px;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(16,24,40,.08);
+  cursor: pointer;
+  font: 600 13px var(--font-body);
+}
+.theme-toggle:hover { filter: brightness(.98); }
+.theme-toggle-icon { font-size: 16px; line-height: 1; }
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-base: #0b0e14;
+  --bg-surface: #151a24;
+  --bg-surface-raised: #1e2430;
+  --text-primary: #f5f7fa;
+  --text-secondary: #9aa5b8;
+  --text-disabled: #5b6478;
+  --divider: #242b38;
+  --brand-core: #2f6fed;
+  --brand-glow: #5fa8ff;
+}
+
+[data-theme="dark"] .bottom-nav { background: rgba(11,14,20,.94); }
+[data-theme="dark"] .sidebar { background: var(--bg-base); }
+[data-theme="dark"] .theme-toggle { box-shadow: 0 4px 16px rgba(0,0,0,.25); }
