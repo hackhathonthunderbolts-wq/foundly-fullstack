@@ -7,6 +7,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/theme.css">
+<script>
+  (() => {
+    const saved = localStorage.getItem('foundly-theme');
+    const theme = saved === 'dark' || saved === 'light' ? saved : 'light';
+    document.documentElement.dataset.theme = theme;
+  })();
+</script>
 </head>
 <body>
 
@@ -26,9 +34,7 @@
     <div class="sidebar-item" data-tab="profile">☺&nbsp;&nbsp;Profile</div>
   </nav>
 
-  <main class="main-content" id="main-content">
-    <!-- views injected by app.js -->
-  </main>
+  <main class="main-content" id="main-content"></main>
 
   <nav class="bottom-nav">
     <div class="nav-item" data-tab="home"><div>⌂</div><span>Home</span></div>
@@ -38,7 +44,7 @@
   </nav>
 </div>
 
-<!-- Sign-in (hidden until splash resolves, shown if no session) -->
+<!-- Sign-in -->
 <div id="signin" class="splash hidden" style="gap:26px;">
   <div style="text-align:center;">
     <div class="splash-f" style="font-size:46px; animation:none; text-shadow:0 0 20px rgba(95,168,255,0.45);">F</div>
